@@ -4,7 +4,6 @@ namespace Tests\Feature\Livewire;
 
 use Morbzeno\PruebaDePlugin\Models\User;
 use Morbzeno\PruebaDePlugin\Models\Blogs;
-use Morbzeno\PruebaDePlugin\Models\Category;
 use Morbzeno\PruebaDePlugin\Models\Tag;
 use Morbzeno\PruebaDePlugin\Models\Roles;
 use Illuminate\Http\UploadedFile;
