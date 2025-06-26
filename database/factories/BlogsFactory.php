@@ -21,8 +21,8 @@ class BlogsFactory extends Factory
             'title' => $this->faker->sentence(),
             'description' => $this->faker->paragraph(),
             'image' => $this->faker->imageUrl(),
-            'author' => User::factory(),
-            'category_id' => Category::factory(), // si tienes categoría relacionada
+            'author' => \Database\Factories\UserFactory::new()->create(),
+            'category_id' => \Database\Factories\CategoryFactory::new()->create()->id,
         ];
     }
 

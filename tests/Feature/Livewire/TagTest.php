@@ -49,7 +49,7 @@ class TagTest extends TestCase
         $user->assignRole('super_admin'); 
         $this->actingAs($user);
     
-        $tag = Tag::factory()->create();
+        $tag = \Morbzeno\PruebaDePlugin\Models\Tag::factory()->create();
 
         Livewire::test(EditTags::class, ['record' => $tag->getKey()])
             ->assertStatus(200);
@@ -86,7 +86,7 @@ class TagTest extends TestCase
         $user->assignRole('viewer'); 
         $this->actingAs($user);
     
-        $tag = Tag::factory()->create();
+        $tag = \Morbzeno\PruebaDePlugin\Models\Tag::factory()->create();
 
         Livewire::test(EditTags::class, ['record' => $tag->getKey()])
             ->assertStatus(403);
@@ -121,7 +121,7 @@ class TagTest extends TestCase
         $admin->assignRole('super_admin');
         $this->actingAs($admin);
 
-        $tag = Tag::factory()->create([
+        $tag = \Morbzeno\PruebaDePlugin\Models\Tag::factory()->create([
             'name' => 'tag de prueba',
             'description' => 'Descripcion de prueba',
         ]);
@@ -153,7 +153,7 @@ class TagTest extends TestCase
             ->call('create')
             ->assertHasNoErrors();
 
-            $tag = Tag::where('name', 'tag de prueba')->first();
+            $tag = \Morbzeno\PruebaDePlugin\Models\Tag::where('name', 'tag de prueba')->first();
 
             $tag->delete();
             $this->assertDatabaseMissing('tags', [

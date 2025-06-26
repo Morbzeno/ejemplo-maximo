@@ -135,6 +135,8 @@ class UserTest extends TestCase
         Livewire::test(EditUser::class, ['record' => $user->getKey()])
             ->fillForm([
                 'name' => 'Nuevo Nombre',
+                'email' => 'prueba2@gmail.com',
+                'password' => 'Password123?',
             ])
             ->call('save')
             ->assertHasNoErrors();

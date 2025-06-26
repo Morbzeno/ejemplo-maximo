@@ -4,6 +4,7 @@ namespace Tests\Feature\Livewire;
 
 use Morbzeno\PruebaDePlugin\Models\User;
 use Morbzeno\PruebaDePlugin\Models\Blogs;
+use Morbzeno\PruebaDePlugin\Models\Category;
 use Morbzeno\PruebaDePlugin\Models\Tag;
 use Morbzeno\PruebaDePlugin\Models\Roles;
 use Illuminate\Http\UploadedFile;
@@ -53,7 +54,7 @@ class BlogTest extends TestCase
         $user->assignRole('super_admin'); 
         $this->actingAs($user);
     
-        $blog = Blogs::factory()->create();
+        $blog = \Database\Factories\BlogsFactory::new()->create();
 
         Livewire::test(EditBlogs::class, ['record' => $blog->getKey()])
             ->assertStatus(200)
@@ -92,9 +93,9 @@ class BlogTest extends TestCase
         $user->assignRole('viewer');
         $this->actingAs($user);
     
-        $userToEdit = Blogs::factory()->create();
+        $blog = \Database\Factories\BlogsFactory::new()->create();
     
-        $response = $this->get(EditBlogs::getUrl(['record' => $userToEdit->getKey()]));
+        $response = $this->get(EditBlogs::getUrl(['record' => $user->getKey()]));
     
         $response->assertStatus(403);
     }
@@ -118,7 +119,7 @@ class BlogTest extends TestCase
                 'image' => $fakeImage,
                 'author' => $admin->id,
                 'category_id' => $category->id, // ✅ Ahora es un ID
-                'tags' => Tag::factory()->count(3)->create()->pluck('id')->toArray(), // ✅ Array de IDs
+                'tags' => \Database\Factories\TagFactory::new()->count(3)->create()->pluck('id')->toArray(), // ✅ Array de IDs
             ])
             ->call('create')
             ->assertHasNoErrors();
@@ -150,7 +151,7 @@ class BlogTest extends TestCase
                 'image' => $fakeImage,
                 'author' => $admin->id,
                 'category_id' => $category->id, // ✅ Ahora es un ID
-                'tags' => Tag::factory()->count(3)->create()->pluck('id')->toArray(), // ✅ Array de IDs
+                'tags' => \Database\Factories\TagFactory::new()->count(3)->create()->pluck('id')->toArray(), // ✅ Array de IDs
             ])
             ->call('create')
             ->assertHasNoErrors();
